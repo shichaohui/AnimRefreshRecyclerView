@@ -2,7 +2,9 @@
 下拉刷新和上拉加载更多的RecyclerView，具有下拉和刷新动画。
 效果：
 
-图1：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806192213829)  图2：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806193311378)
+图1：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806192213829) 
+
+图2：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806193311378)
 
 图1为是使用自定义Header的下拉刷新和上拉上拉加载。
 图2为没有设置Header和Footer时使用默认的下拉刷新和上拉加载。
