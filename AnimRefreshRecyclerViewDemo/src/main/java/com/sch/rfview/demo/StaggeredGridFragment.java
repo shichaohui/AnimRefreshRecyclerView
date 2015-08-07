@@ -54,13 +54,13 @@ public class StaggeredGridFragment extends Fragment {
             // 使用重写后的瀑布流布局管理器
             mRecyclerView.setLayoutManager(new AnimRFStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
             // 添加头部和脚部，如果不添加就使用默认的头部和脚部，addHeaderView()和setHeaderImage()必须同时使用
-            // mRecyclerView.addHeaderView(headerView);
+            mRecyclerView.addHeaderView(headerView);
             // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
-            // mRecyclerView.setScaleRatio(2.0f);
-            // mRecyclerView.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
-            // mRecyclerView.addFootView(footerView);
+            mRecyclerView.setScaleRatio(1.7f);
+            mRecyclerView.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
+            mRecyclerView.addFootView(footerView);
             // 设置刷新动画的颜色
-            mRecyclerView.setColor(Color.BLUE, Color.WHITE);
+            mRecyclerView.setColor(Color.GREEN, Color.RED);
             // 设置头部恢复动画的执行时间，默认1000毫秒
             mRecyclerView.setHeaderImageDurationMillis(1200);
             // 设置拉伸到最高时头部的透明度，默认0.5f
@@ -96,7 +96,7 @@ public class StaggeredGridFragment extends Fragment {
         @Override
         public void run() {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

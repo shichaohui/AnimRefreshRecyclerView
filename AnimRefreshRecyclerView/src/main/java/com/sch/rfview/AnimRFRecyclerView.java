@@ -35,7 +35,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     private ArrayList<View> mFootViews = new ArrayList<>();
     private Adapter mAdapter;
 
-    private int dp50;
+    private int dp1;
 
     private ImageView headerImage;
     private int headerImageHeight = -1; // 默认高度
@@ -53,7 +53,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     private LoadDataListener mLoadDataListener;
 
     private RelativeLayout.LayoutParams params;
-    private RFAnimView rfAnimView; // 正在刷新状态的View
+    private AnimView rfAnimView; // 正在刷新状态的View
     private int progressColor = Color.WHITE;
     int bgColor = Color.WHITE; // 刷新View的颜色
 
@@ -85,7 +85,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
     private void init(Context context) {
         mContext = context;
-        dp50 = RFAnimView.dip2px(context, 50);
+        dp1 = AnimView.dip2px(context, 1);
         setOverScrollMode(OVER_SCROLL_NEVER);
         post(this);
     }
@@ -200,6 +200,8 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     public void refreshComplate() {
         isLoadingData = false;
         rfAnimView.setVisibility(GONE);
+        // 内容不能充满一页时，刷新完自动获取下一页
+        smoothScrollBy(0, 1);
     }
 
     @Override
@@ -210,9 +212,11 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
             headerLayout.setLayoutParams(new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
-            headerImage = new ImageView(mContext);
-            headerLayout.addView(headerImage, RelativeLayout.LayoutParams.MATCH_PARENT, dp50 / 50);
-            setScaleRatio(150);
+            headerImage = new AnimImageView(mContext);
+            ((AnimImageView)headerImage).setColor(progressColor, bgColor);
+            headerImage.setMaxHeight(dp1 * 130);
+            headerLayout.addView(headerImage, RelativeLayout.LayoutParams.MATCH_PARENT, dp1);
+            setScaleRatio(130);
             setHeaderImage(headerImage);
 
             mHeaderViews.add(headerLayout);
@@ -411,12 +415,12 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
             mLoadDataListener.onRefresh();
             if (rfAnimView == null) {
                 // 设置刷新动画
-                rfAnimView = new RFAnimView(mContext);
+                rfAnimView = new AnimView(mContext);
                 rfAnimView.setColor(progressColor, bgColor);
                 params = new RelativeLayout.LayoutParams(
-                        RFAnimView.dip2px(mContext, 50), RFAnimView.dip2px(mContext, 50));
+                        AnimView.dip2px(mContext, 33), AnimView.dip2px(mContext, 50));
                 params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                params.setMargins(0, RFAnimView.dip2px(mContext, 5), 0, 0);
+                params.setMargins(0, AnimView.dip2px(mContext, 5), 0, 0);
                 ((ViewGroup) mHeaderViews.get(0)).addView(rfAnimView, params);
             } else {
                 rfAnimView.setVisibility(VISIBLE);

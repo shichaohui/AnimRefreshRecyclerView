@@ -15,7 +15,7 @@ ADDED from AndroidManifest.xml:2:1
 		INJECTED from AndroidManifest.xml:0:0
 application
 ADDED from AndroidManifest.xml:5:5
-MERGED from MyAnimRefreshRecyclerView:AnimRefreshRecyclerView:unspecified:11:5
+MERGED from com.sch.rfview:AnimRefreshRecyclerView:1.0.0:11:5
 MERGED from com.android.support:appcompat-v7:22.2.1:22:5
 MERGED from com.android.support:support-v4:22.2.1:22:5
 MERGED from com.android.support:support-v4:22.2.1:22:5
@@ -45,7 +45,7 @@ ADDED from AndroidManifest.xml:16:17
 		ADDED from AndroidManifest.xml:16:27
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
-MERGED from MyAnimRefreshRecyclerView:AnimRefreshRecyclerView:unspecified:7:5
+MERGED from com.sch.rfview:AnimRefreshRecyclerView:1.0.0:7:5
 MERGED from com.android.support:appcompat-v7:22.2.1:20:5
 MERGED from com.android.support:support-v4:22.2.1:20:5
 MERGED from com.android.support:recyclerview-v7:22.2.0:20:5
