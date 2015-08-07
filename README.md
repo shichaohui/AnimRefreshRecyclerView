@@ -2,12 +2,11 @@
 下拉刷新和上拉加载更多的RecyclerView，具有下拉和刷新动画。
 效果：
 
-图1：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806192213829) 
+嗯...看起来有点卡，截图软件的问题：
 
-图2：![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150806193311378)
+![下拉刷新RecyclerView](http://img.blog.csdn.net/20150807174055895)
 
-图1为是使用自定义Header的下拉刷新和上拉上拉加载。
-图2为没有设置Header和Footer时使用默认的下拉刷新和上拉加载。
+图中普通列表是ListView样式，没有设置Header和Footer时使用默认的下拉刷新和上拉加载。而宫格列表和瀑布流列表使用的是自定义Header和Footer的下拉刷新和上拉上拉加载。
 
 项目中包含一个demo（普通Android工程）和Android Library。
 
