@@ -2,6 +2,7 @@ package com.sch.rfview.demo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.view.View;
 
 /**
@@ -35,16 +36,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.list:
-                getFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, listFragment).commit();
+                getFragmentManager().beginTransaction().setCustomAnimations(R.anim.translate_right_in,
+                        R.anim.translate_left_out).replace(R.id.fragment_container, listFragment).commit();
                 break;
             case R.id.grid:
-                getFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, gridFragment).commit();
+                getFragmentManager().beginTransaction().setCustomAnimations(R.anim.translate_right_in,
+                        R.anim.translate_left_out).replace(R.id.fragment_container, gridFragment).commit();
                 break;
             case R.id.staggered_grid:
-                getFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, staggeredGridFragment).commit();
+                getFragmentManager().beginTransaction().setCustomAnimations(R.anim.translate_right_in,
+                        R.anim.translate_left_out).replace(R.id.fragment_container, staggeredGridFragment).commit();
                 break;
         }
     }

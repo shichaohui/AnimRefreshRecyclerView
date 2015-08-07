@@ -8,6 +8,8 @@ int anim abc_slide_in_bottom 0x7f050006
 int anim abc_slide_in_top 0x7f050007
 int anim abc_slide_out_bottom 0x7f050008
 int anim abc_slide_out_top 0x7f050009
+int anim translate_left_out 0x7f05000a
+int anim translate_right_in 0x7f05000b
 int attr actionBarDivider 0x7f010068
 int attr actionBarItemBackground 0x7f010069
 int attr actionBarPopupTheme 0x7f010062
