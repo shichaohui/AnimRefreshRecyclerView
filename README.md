@@ -8,13 +8,19 @@
 
 图中普通列表是ListView样式，没有设置Header和Footer时使用默认的下拉刷新和上拉加载。而宫格列表和瀑布流列表使用的是自定义Header和Footer的下拉刷新和上拉上拉加载。
 
-项目中包含一个demo（普通Android工程）和Android Library。
-
 **用法：**
-* 下载并导入demo和Android Library。
-* 在自己的项目中引用Android Library项目（Library项目中并没有引用资源，也可以自己打成jar包再使用）。
-* 参考demo或下面代码片段进行设置。
-* 下面代码片段中，除了RecyclerView自带的方法，其他方法都是可选的。
+Gradle:
+```xml
+dependencies {
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.0'
+}
+```
+Eclipse的同学们可以自己下载源码拷贝到自己的工程。
+
+代码中的配置参考下面的用法代码片段，除了RecyclerView自带的方法，其他方法都是可选的。
+
+项目地址：https://github.com/shichaohui/AnimRefreshRecyclerViewDemo
+项目中包含一个demo（普通Android工程）和Android Library，感兴趣的同学可以自己下载源码和Demo。
 
 **用法代码片段：**
 ```java
