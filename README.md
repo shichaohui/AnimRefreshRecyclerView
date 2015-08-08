@@ -20,7 +20,7 @@ Gradle:
 
 ```xml
 dependencies {
-    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.0'
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.1'
 }
 ```
 
