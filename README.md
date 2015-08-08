@@ -15,7 +15,7 @@ dependencies {
     compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.0'
 }
 ```
-Eclipse的同学们可以自己下载源码拷贝到自己的工程。
+Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
 
 代码中的配置参考下面的用法代码片段，除了RecyclerView自带的方法，其他方法都是可选的。
 
