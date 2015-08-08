@@ -4,53 +4,73 @@
 
 嗯...看起来有点卡，截图软件的问题：
 
-![下拉刷新RecyclerView](http://img.blog.csdn.net/20150807174055895)
+![带动画的下拉刷新RecyclerView](http://img.blog.csdn.net/20150808145428151)
 
-图中普通列表是ListView样式，没有设置Header和Footer时使用默认的下拉刷新和上拉加载。而宫格列表和瀑布流列表使用的是自定义Header和Footer的下拉刷新和上拉上拉加载。
+上图中演示了三种不同的布局和下拉效果，三种布局和三种下拉效果可以通过Header的设置任意组合。
+
+图中普通列表是ListView样式，没有设置Header和Footer，使用默认的下拉刷新和上拉加载。
+
+宫格列表使用的是自定义Header和Footer的下拉刷新和上拉上拉加载，并设置了下拉使放大的图片。
+
+瀑布流列表使用的是自定义Header和Footer的下拉刷新和上拉上拉加载，没有设置了下拉使放大的图片，使用默认的刷新动画。
 
 **用法：**
+
 Gradle:
+
 ```xml
 dependencies {
     compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.0'
 }
 ```
+
 Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
 
 代码中的配置参考下面的用法代码片段，除了RecyclerView自带的方法，其他方法都是可选的。
 
 项目地址：https://github.com/shichaohui/AnimRefreshRecyclerViewDemo
+
 项目中包含一个demo（普通Android工程）和Android Library，感兴趣的同学可以自己下载源码和Demo。
 
 **用法代码片段：**
+
+* 根据列表的不同效果选择不同的布局管理器：
 ```java
-// 自定义的RecyclerView, 也可以在布局文件中正常使用
-mRecyclerView = new AnimRFRecyclerView(getActivity());
-// 头部
-headerView = LayoutInflater.from(getActivity()).inflate(R.layout.header_view, null);
-// 脚部
-footerView = LayoutInflater.from(getActivity()).inflate(R.layout.footer_view, null);
-
-// 根据列表的不同效果选择不同的布局管理器
 // 使用重写后的线性布局管理器
-mRecyclerView.setLayoutManager(new AnimRFLinearLayoutManager(getActivity()));
+mRecyclerView.setLayoutManager(new AnimRFLinearLayoutManager(this));
+
 // 使用重写后的格子布局管理器
-// mRecyclerView.setLayoutManager(new AnimRFGridLayoutManager(getActivity(), 2));
+mRecyclerView.setLayoutManager(new AnimRFGridLayoutManager(this, 2));
+
 // 使用重写后的瀑布流布局管理器
-// mRecyclerView.setLayoutManager(new AnimRFStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+mRecyclerView.setLayoutManager(new AnimRFStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+```
+* 设置Header和Footer：
+```java
+// 头部
+headerView = LayoutInflater.from(this).inflate(R.layout.header_view, null);
+// 脚部
+footerView = LayoutInflater.from(this).inflate(R.layout.footer_view, null);
 
-// 添加头部和脚部，如果不添加就使用默认的头部和脚部，addHeaderView()和setHeaderImage()必须同时使用
-// mRecyclerView.addHeaderView(headerView);
+// 添加头部和脚部，如果不添加就使用默认的头部和脚部（头部可以有多个）
+mRecyclerView.addHeaderView(headerView);
 // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
-// mRecyclerView.setScaleRatio(2.0f);
-// mRecyclerView.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
-// mRecyclerView.addFootView(footerView);
+mRecyclerView.setScaleRatio(2.0f);
+// 设置下拉时拉伸的图片，不设置就使用默认的
+mRecyclerView.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
+mRecyclerView.addFootView(footerView);
+```
+可以通过`addHeaderView()`和`setHeaderImage()`方法任意组合下拉效果，可以调用多次`addHeaderView()`方法添加多个头部，但是`setHeaderImage()`方法最多被调用一次。
 
-// 设置刷新动画的颜色
+最多调用一次`addFootView()`方法，即最多设置一个FooterView。
+
+* 其他设置：
+```java
+// 设置刷新动画的颜色（可选）
 mRecyclerView.setColor(Color.RED, Color.WHITE);
-// 设置头部恢复动画的执行时间，默认1000毫秒
+// 设置头部恢复动画的执行时间，默认1000毫秒（可选）
 mRecyclerView.setHeaderImageDurationMillis(1200);
-// 设置拉伸到最高时头部的透明度，默认0.5f
+// 设置拉伸到最高时头部的透明度，默认0.5f（可选）
 mRecyclerView.setHeaderImageMinAlpha(0.6f);
 
 // 设置适配器
@@ -71,7 +91,8 @@ mRecyclerView.setLoadDataListener(new AnimRFRecyclerView.LoadDataListener() {
     }
 });
 ```
-在刷新和加载过更多完成之后调用代码停止动画：
+
+* 在刷新和加载过更多完成之后调用代码停止动画：
 ```java
 // 刷新完成后调用，必须在UI线程中
 mRecyclerView.refreshComplate();
