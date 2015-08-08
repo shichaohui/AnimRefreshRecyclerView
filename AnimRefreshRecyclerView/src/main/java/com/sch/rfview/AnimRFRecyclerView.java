@@ -91,12 +91,11 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     }
 
     /**
-     * 添加头部视图
+     * 添加头部视图，可以添加多个
      *
      * @param view
      */
     public void addHeaderView(View view) {
-        mHeaderViews.clear();
         mHeaderViews.add(view);
         if (mAdapter != null) {
             if (!(mAdapter instanceof WrapAdapter)) {
@@ -106,7 +105,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     }
 
     /**
-     * 添加脚部视图
+     * 添加脚部视图，此视图只能添加一个，添加多个时，默认最后添加的一个。
      *
      * @param view
      */
@@ -121,7 +120,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     }
 
     /**
-     * 设置头部图片
+     * 设置头部拉伸图片
      *
      * @param headerImage 头部中的背景ImageView
      */
@@ -206,7 +205,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (mHeaderViews.isEmpty()) {
+        if (mHeaderViews.isEmpty() || headerImage == null) {
             // 新建头部
             RelativeLayout headerLayout = new RelativeLayout(mContext);
             headerLayout.setLayoutParams(new LayoutParams(
@@ -219,7 +218,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
             setScaleRatio(130);
             setHeaderImage(headerImage);
 
-            mHeaderViews.add(headerLayout);
+            mHeaderViews.add(0, headerLayout);
         }
         if (mFootViews.isEmpty()) {
             // 新建脚部
@@ -453,7 +452,15 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
                         View view = ((View) msg.obj);
                         view.layout(view.getLeft(), 0, view.getRight(), view.getBottom());
                     } else {
-                        headerImage.getLayoutParams().height -= msg.arg1;
+                        // 实现类似弹簧的阻力效果，拉的越长就越难拉的动
+                        headerImageScaleHeight = headerImage.getLayoutParams().height - headerImageHeight;
+                        if (headerImageScaleHeight < (headerImageMaxHeight - headerImageHeight) / 3) {
+                            headerImage.getLayoutParams().height -= msg.arg1;
+                        } else if (headerImageScaleHeight > (headerImageMaxHeight - headerImageHeight) / 3 * 2) {
+                            headerImage.getLayoutParams().height -= msg.arg1 / 3 * 2;
+                        } else {
+                            headerImage.getLayoutParams().height -= msg.arg1 / 3 * 1.5;
+                        }
                     }
                     headerImage.requestLayout();
                     break;
@@ -509,6 +516,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
         final ArrayList<View> EMPTY_INFO_LIST =
                 new ArrayList<>();
+        private int headerPosition = 0;
 
         public WrapAdapter(ArrayList<View> mHeaderViews, ArrayList<View> mFootViews, RecyclerView.Adapter mAdapter) {
             this.mAdapter = mAdapter;
@@ -565,7 +573,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (viewType == RecyclerView.INVALID_TYPE) {
-                return new HeaderViewHolder(mHeaderViews.get(0));
+                return new HeaderViewHolder(mHeaderViews.get(headerPosition++));
             } else if (viewType == RecyclerView.INVALID_TYPE - 1) {
                 StaggeredGridLayoutManager.LayoutParams params = new StaggeredGridLayoutManager.LayoutParams(
                         StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT, StaggeredGridLayoutManager.LayoutParams.WRAP_CONTENT);

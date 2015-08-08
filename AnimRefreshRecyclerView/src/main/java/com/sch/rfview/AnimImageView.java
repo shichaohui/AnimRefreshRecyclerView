@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -18,7 +18,7 @@ public class AnimImageView extends ImageView {
     private int dp1; // 1dp
     private int screenWidth; // 屏幕宽度
     private int height; // 当前View的高度
-    private int maxHeight; // 上次View的高度
+    private int maxHeight; // View的最大高度
     private int centerX; // 当前View的中心点的X坐标
 
     private String text = "下拉刷新";
@@ -28,6 +28,8 @@ public class AnimImageView extends ImageView {
 
     private Paint mPaint;
     private Paint mPaintText;
+
+    private Path mPath;
 
     public AnimImageView(Context context) {
         this(context, null);
@@ -52,6 +54,8 @@ public class AnimImageView extends ImageView {
         mPaintText.setColor(Color.WHITE);
         mPaintText.setAntiAlias(true);
         mPaintText.setTextSize(28);
+
+        mPath = new Path();
 
         textWidth = mPaint.measureText(text);
 
@@ -88,11 +92,18 @@ public class AnimImageView extends ImageView {
 
             height = getLayoutParams().height;
 
+            // 背景
             canvas.drawColor(colorBg);
-
-            canvas.drawArc(new RectF(-screenWidth / 3, -height * 3, screenWidth * 1.3f, height),
-                    0, 180, false, mPaint);
-
+            // 矩形
+            canvas.drawRect(0, 0, screenWidth, 130, mPaint);
+            // 曲线
+            if (height > 130) {
+                mPath.reset();
+                mPath.moveTo(0, 130);
+                mPath.cubicTo(centerX, height, centerX, height, screenWidth, 130);
+                canvas.drawPath(mPath, mPaint);
+            }
+            // 文本
             if (height >= maxHeight) {
                 canvas.drawText("松手刷新", centerX - textWidth, 50, mPaintText);
                 canvas.drawText("松手刷新", centerX - textWidth, 50, mPaintText);
