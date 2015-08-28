@@ -100,3 +100,5 @@ mRecyclerView.refreshComplate();
 // 加载更多完成后调用，必须在UI线程中
 mRecyclerView.loadMoreComplate();
 ```
+
+Tips：若在使用过程中发现adapter.notifyDataSetChange()等更新数据的方法无效，可使用recyclerView.getAdapter()获取当前使用的Adapter，并使用获取到到Adapter更新数据。
