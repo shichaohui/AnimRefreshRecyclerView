@@ -103,9 +103,10 @@ mRecyclerView.loadMoreComplate();
 
 Tips：
 
-1.若在使用过程中发现adapter.notifyDataSetChange()等更新数据的方法无效，可使用recyclerView.getAdapter()获取当前使用的Adapter，并使用获取到到Adapter更新数据。
+1.若在使用过程中发现`adapter.notifyDataSetChange()`等更新数据的方法无效，可使用`recyclerView.getAdapter()`获取当前使用的Adapter，并使用获取到到Adapter更新数据。
 
-2.解决Android 5.0兼容问题：将`AnimView.java`中的setVisibility(int visibility)这个方法改成如下：
+2.解决Android 5.0兼容问题：
+Gradle依赖包的版本没有更新，要适配的话请自行修改代码，将`AnimView.java`中的`setVisibility(int visibility)`这个方法改成如下：
 ```
 @Override
 public void setVisibility(int visibility) {
