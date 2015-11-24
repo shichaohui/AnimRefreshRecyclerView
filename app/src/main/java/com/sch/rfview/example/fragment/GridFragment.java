@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sch.rfview.manager.AnimRFGridLayoutManager;
 import com.sch.rfview.AnimRFRecyclerView;
 import com.sch.rfview.example.R;
 import com.sch.rfview.example.utils.DimensionConvert;
+import com.sch.rfview.manager.AnimRFGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
