@@ -1,1 +1,1 @@
-include ':app', ':LibAnimRefreshRecyclerView'
+include ':app', ':AnimRefreshRecyclerView'
