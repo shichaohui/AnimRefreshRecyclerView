@@ -48,7 +48,6 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     private ImageView headerImage;
     private int headerImageHeight = -1; // 默认高度
     private int headerImageMaxHeight = -1; // 最大高度
-    private int headerImageMinHeight = 0; // 最xiao高度
     private int headerImageScaleHeight = -1; // 被拉伸的高度
     private float scaleRatio = 1.5f; // 最大拉伸比例
     private float headerImageMinAlpha = 0.5f; // 拉伸到最高时头部的透明度
@@ -93,10 +92,17 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
     private void init(Context context) {
         mContext = context;
-        rfView = this;
         dp1 = AnimView.dip2px(context, 1);
         setOverScrollMode(OVER_SCROLL_NEVER);
         post(this);
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        if (visibility == VISIBLE) {
+            rfView = this;
+        }
     }
 
     /**
@@ -341,8 +347,8 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
         super.onScrollChanged(l, t, oldl, oldt);
         if (headerImage == null) return;
         View view = (View) headerImage.getParent();
-        // 上推的时候减小高度至最小高度
-        if (view.getTop() < 0 && headerImage.getLayoutParams().height > headerImageMinHeight) {
+        // 上推的时候减小高度至默认高度
+        if (view.getTop() < 0 && headerImage.getLayoutParams().height > headerImageHeight) {
             headerImage.getLayoutParams().height += view.getTop();
             mHandler.obtainMessage(0, view.getTop(), 0, view).sendToTarget();
         }
@@ -438,7 +444,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
      */
     private void headerImageHint() {
         ValueAnimator animator = ValueAnimator.ofInt(
-                headerImage.getLayoutParams().height, headerImageMinHeight);
+                headerImage.getLayoutParams().height, headerImageHeight);
         animator.setDuration(durationMillis);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -509,13 +515,9 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     private class WrapAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         private RecyclerView.Adapter mAdapter;
-
         private ArrayList<View> mHeaderViews;
-
         private ArrayList<View> mFootViews;
-
-        final ArrayList<View> EMPTY_INFO_LIST =
-                new ArrayList<>();
+        final ArrayList<View> EMPTY_INFO_LIST = new ArrayList<>();
         private int headerPosition = 0;
 
         public WrapAdapter(ArrayList<View> mHeaderViews, ArrayList<View> mFootViews, RecyclerView.Adapter mAdapter) {

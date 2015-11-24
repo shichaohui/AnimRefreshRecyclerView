@@ -62,8 +62,8 @@ public class StaggeredGridFragment extends Fragment {
             mRecyclerView.addFootView(footerView);
             // 设置刷新动画的颜色
             mRecyclerView.setColor(Color.GREEN, Color.RED);
-            // 设置头部恢复动画的执行时间，默认1000毫秒
-            mRecyclerView.setHeaderImageDurationMillis(1200);
+            // 设置头部恢复动画的执行时间，默认500毫秒
+            mRecyclerView.setHeaderImageDurationMillis(300);
             // 设置拉伸到最高时头部的透明度，默认0.5f
             mRecyclerView.setHeaderImageMinAlpha(0.6f);
             // 设置适配器

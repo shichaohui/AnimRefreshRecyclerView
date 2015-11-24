@@ -1,18 +1,15 @@
 apply plugin: 'com.android.library'
-/*提交到bintray的相关配置----start----*/
+
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
-version = "1.0.1"
-/*提交到bintray的相关配置----pause----*/
+version = "1.0.2"
 
 android {
     compileSdkVersion 22
     buildToolsVersion "20.0.0"
 
-    /*提交到bintray的相关配置----resume----*/
     resourcePrefix "AnimRefreshRecyclerView" // 可以随便填，不知道干嘛用的
-    /*提交到bintray的相关配置----pause----*/
 
     defaultConfig {
         minSdkVersion 14
@@ -29,16 +26,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
     /* RecyclerView */
     compile 'com.android.support:recyclerview-v7:22.2.0'
 }
 
-/*提交到bintray的相关配置----resume----*/
-def siteUrl = 'https://github.com/shichaohui/AnimRefreshRecyclerViewDemo'      // 项目的主页
-def gitUrl = 'https://github.com/shichaohui/AnimRefreshRecyclerViewDemo.git'   // Git仓库的url
-group = "com.sch.rfview" // Maven Group ID for the artifact，一般填你唯一的包名
+def siteUrl = 'https://github.com/shichaohui/AnimRefreshRecyclerView'      // 项目的主页
+def gitUrl = 'https://github.com/shichaohui/AnimRefreshRecyclerView.git'   // Git仓库的url
+group = "com.sch.rfview" // Maven Group ID for the artifact，填包名
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
@@ -62,7 +56,6 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
-        publish = true
+        publish = true //是否发布
     }
 }
-/*提交到bintray的相关配置----end----*/
