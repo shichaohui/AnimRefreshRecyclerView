@@ -1,19 +1,17 @@
 apply plugin: 'com.android.library'
-
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 // 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
 version = "1.0.2"
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     resourcePrefix "AnimRefreshRecyclerView" // 可以随便填，不知道干嘛用的
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -27,7 +25,7 @@ android {
 
 dependencies {
     /* RecyclerView */
-    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
 }
 
 def siteUrl = 'https://github.com/shichaohui/AnimRefreshRecyclerView'      // 项目的主页
