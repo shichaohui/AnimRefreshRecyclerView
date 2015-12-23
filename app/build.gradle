@@ -26,6 +26,6 @@ dependencies {
     /* RecyclerView */
     compile 'com.android.support:recyclerview-v7:23.1.0'
 
-    compile project(':AnimRefreshRecyclerView')
-//    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.2@aar'
+//    compile project(':AnimRefreshRecyclerView')
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.3@aar'
 }

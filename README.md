@@ -1,4 +1,4 @@
-# AnimRefreshRecyclerViewDemo
+# AnimRefreshRecyclerViewDemo V1.0.3
 
 效果预览，嗯...看起来有点卡，截图软件的问题
 
@@ -15,7 +15,7 @@ Gradle:
 ```xml
 dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.2@aar'
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.3@aar'
 }
 ```
 Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
@@ -78,10 +78,18 @@ mRecyclerView.setLoadDataListener(new AnimRFRecyclerView.LoadDataListener() {
 });
 ```
 
+#### 手动刷新
+如果想第一次进入界面时就显示加载数据的动画，需要使用手动刷新的方法。此方法需要在其他设置完成后调用,具体使用可以[看这里](https://github.com/shichaohui/AnimRefreshRecyclerView/blob/master/app/src/main/java/com/sch/rfview/example/fragment/LinearFragment.java)
+```java
+mRecyclerView.setRefresh(true);
+```
+
 #### 在刷新和加载过更多完成之后调用代码停止动画：
 ```java
 // 刷新完成后调用，必须在UI线程中
 mRecyclerView.refreshComplate();
+// 或者 刷新完成后调用，必须在UI线程中
+mRecyclerView.setRefresh(false);
 
 // 加载更多完成后调用，必须在UI线程中
 mRecyclerView.loadMoreComplate();
