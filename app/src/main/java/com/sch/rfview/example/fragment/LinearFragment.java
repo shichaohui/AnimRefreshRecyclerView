@@ -32,7 +32,8 @@ public class LinearFragment extends Fragment {
     private Handler mHandler = new Handler();
 
     public LinearFragment() {
-        addData();
+//        addData();
+        datas = new ArrayList<>();
     }
 
     @Nullable
@@ -64,6 +65,7 @@ public class LinearFragment extends Fragment {
             mRecyclerView.setHeaderImageMinAlpha(0.6f);
             // 设置适配器
             mRecyclerView.setAdapter(new MyAdapter());
+
             // 设置刷新和加载更多数据的监听，分别在onRefresh()和onLoadMore()方法中执行刷新和加载更多操作
             mRecyclerView.setLoadDataListener(new AnimRFRecyclerView.LoadDataListener() {
                 @Override
@@ -76,6 +78,9 @@ public class LinearFragment extends Fragment {
                     new Thread(new MyRunnable(false)).start();
                 }
             });
+
+            // 刷新
+            mRecyclerView.setRefresh(true);
 
         }
 
@@ -92,12 +97,7 @@ public class LinearFragment extends Fragment {
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mHandler.post(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (isRefresh) {
@@ -112,7 +112,7 @@ public class LinearFragment extends Fragment {
                         mRecyclerView.loadMoreComplate();
                     }
                 }
-            });
+            }, 2000);
         }
     }
 
@@ -128,9 +128,6 @@ public class LinearFragment extends Fragment {
      * 添加数据
      */
     private void addData() {
-        if (datas == null) {
-            datas = new ArrayList<>();
-        }
         for (int i = 0; i < 13; i++) {
             datas.add("条目  " + (datas.size() + 1));
         }

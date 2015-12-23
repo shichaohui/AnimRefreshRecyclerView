@@ -408,7 +408,11 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
             case MotionEvent.ACTION_OUTSIDE:
                 isTouching = false;
                 if (headerImage.getLayoutParams().height > headerImageHeight) {
-                    refresh();
+                    if (headerImage.getLayoutParams().height >= headerImageMaxHeight
+                            && mLoadDataListener != null && !isLoadingData) {
+                        refresh();
+                    }
+                    headerImageHint();
                     return true;
                 }
                 break;
@@ -417,26 +421,35 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
         return super.onTouchEvent(ev);
     }
 
+    /**
+     * 设置是否执行刷新
+     *
+     * @param isRefrsh
+     */
+    public void setRefresh(boolean isRefrsh) {
+        if (isRefrsh) {
+            refresh();
+        } else {
+            refreshComplate();
+        }
+    }
+
     // 刷新
     private void refresh() {
-        if (headerImage.getLayoutParams().height >= headerImageMaxHeight
-                && mLoadDataListener != null && !isLoadingData) {
-            isLoadingData = true;
-            mLoadDataListener.onRefresh();
-            if (rfAnimView == null) {
-                // 设置刷新动画
-                rfAnimView = new AnimView(mContext);
-                rfAnimView.setColor(progressColor, bgColor);
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        AnimView.dip2px(mContext, 33), AnimView.dip2px(mContext, 50));
-                params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                params.setMargins(0, AnimView.dip2px(mContext, 5), 0, 0);
-                ((ViewGroup) mHeaderViews.get(0)).addView(rfAnimView, params);
-            } else {
-                rfAnimView.setVisibility(VISIBLE);
-            }
+        isLoadingData = true;
+        mLoadDataListener.onRefresh();
+        if (rfAnimView == null) {
+            // 设置刷新动画
+            rfAnimView = new AnimView(mContext);
+            rfAnimView.setColor(progressColor, bgColor);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    AnimView.dip2px(mContext, 33), AnimView.dip2px(mContext, 50));
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            params.setMargins(0, AnimView.dip2px(mContext, 5), 0, 0);
+            ((ViewGroup) mHeaderViews.get(0)).addView(rfAnimView, params);
+        } else {
+            rfAnimView.setVisibility(VISIBLE);
         }
-        headerImageHint();
     }
 
     /**
