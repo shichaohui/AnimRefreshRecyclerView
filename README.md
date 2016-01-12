@@ -15,7 +15,7 @@ Gradle:
 ```xml
 dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.3@aar'
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.4@aar'
 }
 ```
 Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
@@ -79,7 +79,7 @@ mRecyclerView.setLoadDataListener(new AnimRFRecyclerView.LoadDataListener() {
 ```
 
 #### 手动刷新
-如果想第一次进入界面时就显示加载数据的动画，需要使用手动刷新的方法。此方法需要在其他设置完成后调用,具体使用可以[看这里](https://github.com/shichaohui/AnimRefreshRecyclerView/blob/master/app/src/main/java/com/sch/rfview/example/fragment/LinearFragment.java)
+如果想第一次进入界面时就显示加载数据的动画，需要使用手动刷新的方法。此方法需要在其他设置完成后调用，具体使用可以[看这里](https://github.com/shichaohui/AnimRefreshRecyclerView/blob/master/app/src/main/java/com/sch/rfview/example/fragment/LinearFragment.java)
 ```java
 mRecyclerView.setRefresh(true);
 ```
@@ -93,6 +93,12 @@ mRecyclerView.setRefresh(false);
 
 // 加载更多完成后调用，必须在UI线程中
 mRecyclerView.loadMoreComplate();
+```
+
+#### 禁止刷新
+如果不想使用自带的刷新效果，而想要使用SwipRefreshLayout做刷新，可使用以下代码禁止自带的刷新效果
+```
+mRecyclerView.setRefreshEnable(false);
 ```
 
 **Tips：**

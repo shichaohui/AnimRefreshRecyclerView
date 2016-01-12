@@ -64,11 +64,13 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     private int progressColor = Color.WHITE;
     int bgColor = Color.WHITE; // 刷新View的颜色
 
+    private boolean isEnable = true;
+
     private OverScrollListener mOverScrollListener = new OverScrollListener() {
         @Override
         public void overScrollBy(int dy) {
             // dy为拉伸过度时每毫秒拉伸的距离，正数表示向上拉伸多度，负数表示向下拉伸过度
-            if (!isLoadingData && isTouching
+            if (isEnable && !isLoadingData && isTouching
                     && ((dy < 0 && headerImage.getLayoutParams().height < headerImageMaxHeight)
                     || (dy > 0 && headerImage.getLayoutParams().height > headerImageHeight))) {
                 mHandler.obtainMessage(0, dy, 0, null).sendToTarget();
@@ -220,7 +222,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (mHeaderViews.isEmpty() || headerImage == null) {
+        if (mHeaderViews.isEmpty() || headerImage == null && isEnable) {
             // 新建头部
             RelativeLayout headerLayout = new RelativeLayout(mContext);
             headerLayout.setLayoutParams(new LayoutParams(
@@ -432,6 +434,14 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
         } else {
             refreshComplate();
         }
+    }
+
+    /**
+     * 设置是否可刷新
+     * @param isEnable
+     */
+    public void setRefreshEnable(boolean isEnable) {
+        this.isEnable = isEnable;
     }
 
     // 刷新

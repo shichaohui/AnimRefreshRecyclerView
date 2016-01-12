@@ -75,6 +75,8 @@ public class GridFragment extends Fragment {
                 }
             });
 
+            mRecyclerView.setRefreshEnable(false);
+
         }
 
         return mRecyclerView;
