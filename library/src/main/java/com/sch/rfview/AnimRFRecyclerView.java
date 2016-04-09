@@ -62,7 +62,7 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
 
     private AnimView rfAnimView; // 正在刷新状态的View
     private int progressColor = Color.WHITE;
-    int bgColor = Color.WHITE; // 刷新View的颜色
+    private int bgColor = Color.WHITE; // 刷新View的颜色
 
     private boolean isEnable = true;
 

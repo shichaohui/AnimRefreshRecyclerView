@@ -15,7 +15,7 @@ Gradle:
 ```xml
 dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.4@aar'
+    compile 'com.sch.rfview:library:1.0.6@aar'
 }
 ```
 Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
@@ -24,20 +24,31 @@ Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（
 #### 根据列表的不同效果选择不同的布局管理器：
 ```java
 // 使用重写后的线性布局管理器
-mRecyclerView.setLayoutManager(new AnimRFLinearLayoutManager(this));
+mRecyclerView.setLayoutManager(new AnimRFLinearLayoutManager(context));
 
 // 使用重写后的格子布局管理器
-mRecyclerView.setLayoutManager(new AnimRFGridLayoutManager(this, 2));
+mRecyclerView.setLayoutManager(new AnimRFGridLayoutManager(context, 2));
 
 // 使用重写后的瀑布流布局管理器
 mRecyclerView.setLayoutManager(new AnimRFStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 ```
+
+#### 根据不同的布局管理器设置分割线：
+```java
+// 设置列表布局的分割线
+mRecyclerView.addItemDecoration(new DividerItemDecoration(context,
+        mAnimRFLinearLayoutManager.getOrientation(), true));
+
+// 设置网格或者瀑布流布局的分割线
+mRecyclerView.addItemDecoration(new DividerGridItemDecoration(context, true));
+```
+
 #### 设置Header和Footer：
 ```java
 // 头部
-headerView = LayoutInflater.from(this).inflate(R.layout.header_view, null);
+headerView = LayoutInflater.from(context).inflate(R.layout.header_view, null);
 // 脚部
-footerView = LayoutInflater.from(this).inflate(R.layout.footer_view, null);
+footerView = LayoutInflater.from(context).inflate(R.layout.footer_view, null);
 
 // 添加头部和脚部，如果不添加就使用默认的头部和脚部（头部可以有多个）
 mRecyclerView.addHeaderView(headerView);

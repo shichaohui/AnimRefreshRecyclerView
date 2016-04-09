@@ -33,7 +33,7 @@ public class LinearFragment extends Fragment {
     private Handler mHandler = new Handler();
 
     public LinearFragment() {
-//        addData();
+        // addData();
         datas = new ArrayList<>();
     }
 
@@ -52,9 +52,7 @@ public class LinearFragment extends Fragment {
             // 使用重写后的线性布局管理器
             AnimRFLinearLayoutManager manager = new AnimRFLinearLayoutManager(getActivity());
             mRecyclerView.setLayoutManager(manager);
-            // 添加分割线
-            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
-                    manager.getOrientation(), true));
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), manager.getOrientation(), true));
 //            // 添加头部和脚部，如果不添加就使用默认的头部和脚部
 //            mRecyclerView.addHeaderView(headerView);
 //            // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
