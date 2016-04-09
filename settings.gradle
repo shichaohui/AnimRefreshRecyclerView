@@ -1,1 +1,1 @@
-include ':app', ':AnimRefreshRecyclerView'
+include ':app', ':library'

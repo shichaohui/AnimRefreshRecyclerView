@@ -265,18 +265,6 @@ public class AnimRFRecyclerView extends RecyclerView implements Runnable {
     }
 
     @Override
-    public void setLayoutManager(LayoutManager layout) {
-        super.setLayoutManager(layout);
-        // 根据布局管理器设置分割线
-        if (layout instanceof AnimRFLinearLayoutManager) {
-            super.addItemDecoration(new DividerItemDecoration(mContext,
-                    ((AnimRFLinearLayoutManager) layout).getOrientation(), true));
-        } else {
-            super.addItemDecoration(new DividerGridItemDecoration(mContext, true));
-        }
-    }
-
-    @Override
     public void run() {
         LayoutManager manager = getLayoutManager();
         if (manager instanceof AnimRFLinearLayoutManager) {
