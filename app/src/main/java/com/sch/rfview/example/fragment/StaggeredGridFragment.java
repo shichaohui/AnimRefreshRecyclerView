@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sch.rfview.AnimRFRecyclerView;
+import com.sch.rfview.decoration.DividerGridItemDecoration;
 import com.sch.rfview.manager.AnimRFStaggeredGridLayoutManager;
 import com.sch.rfview.example.R;
 import com.sch.rfview.example.utils.DimensionConvert;
@@ -53,6 +54,8 @@ public class StaggeredGridFragment extends Fragment {
 
             // 使用重写后的瀑布流布局管理器
             mRecyclerView.setLayoutManager(new AnimRFStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+            // 添加分割线
+            mRecyclerView.addItemDecoration(new DividerGridItemDecoration(getActivity(), true));
             // 添加头部和脚部，如果不添加就使用默认的头部和脚部
             mRecyclerView.addHeaderView(headerView);
             // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前

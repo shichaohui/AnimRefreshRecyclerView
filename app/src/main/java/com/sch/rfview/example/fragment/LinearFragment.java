@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sch.rfview.AnimRFRecyclerView;
+import com.sch.rfview.decoration.DividerItemDecoration;
 import com.sch.rfview.example.R;
 import com.sch.rfview.example.utils.DimensionConvert;
 import com.sch.rfview.manager.AnimRFLinearLayoutManager;
@@ -49,7 +50,11 @@ public class LinearFragment extends Fragment {
             footerView = LayoutInflater.from(getActivity()).inflate(R.layout.footer_view, null);
 
             // 使用重写后的线性布局管理器
-            mRecyclerView.setLayoutManager(new AnimRFLinearLayoutManager(getActivity()));
+            AnimRFLinearLayoutManager manager = new AnimRFLinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(manager);
+            // 添加分割线
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                    manager.getOrientation(), true));
 //            // 添加头部和脚部，如果不添加就使用默认的头部和脚部
 //            mRecyclerView.addHeaderView(headerView);
 //            // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
