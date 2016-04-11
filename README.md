@@ -15,7 +15,7 @@ Gradle:
 ```xml
 dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.sch.rfview:library:1.0.6@aar'
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.6@aar'
 }
 ```
 Eclipse的同学们可以自己下载源码拷贝java文件到自己的工程（别忘了引用RecyclerView的包哦）。
